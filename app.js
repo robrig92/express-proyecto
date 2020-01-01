@@ -30,12 +30,15 @@ app.get('/login', (request, response) => {
 app.post('/users', (request, response) => {
     let user = new User({
         email: request.body.email,
+        username: request.body.username,
         password: request.body.password,
         password_confirmation: request.body.password_confirmation
     });
 
     user.save((err, user) => {
-        if (err) throw err;
+        if (err) {
+            console.log(String(err));
+        }
         response.send('Usuario guardado');
     });
 });

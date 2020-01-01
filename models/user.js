@@ -5,14 +5,39 @@ mongoose.connect('mongodb://127.0.0.1:27017/fotos');
 
 const genres = ['M', 'F'];
 
+const passwordValidation = (p) => {
+    return this.p_c === p;
+}
+
 const userSchema = new Schema({
     name: String,
-    username: {type: String, required: 'The username is required', maxlength: [50, 'The max length alloweed is 50']},
-    password: {type: String, minlength: [8, 'The min length is 8']},
-    age: {type: Number, min: [5, 'The min age is 5'], max: [99, 'The max alloweed age is 99']},
-    email: {type: String, required: 'The e-mail is required'},
+    username: {
+        type: String,
+        required: 'The username is required',
+        maxlength: [50, 'The max length alloweed is 50']
+    },
+    password: {
+        type: String,
+        minlength: [8, 'The min length is 8'],
+        validate: {
+            validator: passwordValidation,
+            message: 'The passwords must match'
+        }
+    },
+    age: {
+        type: Number,
+        min: [5, 'The min age is 5'],
+        max: [99, 'The max alloweed age is 99']
+    },
+    email: {
+        type: String,
+        required: 'The e-mail is required'
+    },
     date_of_birth: Date,
-    genre: {type: String, enum: {values: genres, message: 'Invalid option'}}
+    genre: {
+        type: String,
+        enum: {values: genres, message: 'Invalid option'}
+    }
 });
 
 userSchema.virtual('password_confirmation')
