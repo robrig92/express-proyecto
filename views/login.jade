@@ -1,19 +1,17 @@
 extends ./layout.jade
 
 block content
-    form(action="/users", method="POST")
-        div.row
-            div.col-12.form-group
-                label(for="email") Email
-                input(type="email", name="email", id="email", placeholder="E-mail").form-control
-            div.col-12.form-group
-                label(for="username") Username
-                input(type="text", name="username", id="username", placeholder="User name").form-control
-            div.col-12.form-group
+    form(action="/sessions", method="post")
+        div(class="row")
+            div(class="col-12 form-group")
+                label(for="email") E-mail
+                input(type="email", name="email", id="email", class="form-control", placeholder="E-mail")
+        div(class="row")
+            div(class="col-12 form-group")
                 label(for="password") Password
-                input(type="password", name="password", id="password", placeholder="Password").form-control
-            div.col-12.form-group
-                label(for="password_confirmation") Password confirmation
-                input(type="password", name="password_confirmation", id="password_confirmation", placeholder="Password").form-control
-            div(clas="col-12 form-group")
-                input(type="submit", value="Log in!", class="btn btn-info")
+                input(type="password", name="password", id="password", class="form-control", placeholder="Password")
+        div(class="row")
+            div(class="col-6")
+                input(type="submit", value="Login", class="btn btn-success")
+            div(class="col-6 text-right")
+                a(href="/signup", title="Sign up") Sign up

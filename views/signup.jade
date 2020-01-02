@@ -1,0 +1,22 @@
+extends ./layout.jade
+
+block content
+    form(action="/users", method="POST")
+        div.row
+            div.col-12.form-group
+                label(for="email") Email
+                input(type="email", name="email", id="email", placeholder="E-mail").form-control
+            div.col-12.form-group
+                label(for="username") Username
+                input(type="text", name="username", id="username", placeholder="User name").form-control
+            div.col-12.form-group
+                label(for="password") Password
+                input(type="password", name="password", id="password", placeholder="Password").form-control
+            div.col-12.form-group
+                label(for="password_confirmation") Password confirmation
+                input(type="password", name="password_confirmation", id="password_confirmation", placeholder="Password").form-control
+        div.row
+            div(clas="col-6")
+                input(type="submit", value="Sign up", class="btn btn-info")
+            div(class="col-6 text-right")
+                a(href="/login", title="Log in") Log in
