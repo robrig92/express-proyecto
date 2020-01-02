@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 const router_app = require('./router_app');
 const session_middleware = require('./middlewares/session');
 const methodOverride = require('method-override');
+const formidable = require('express-formidable');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cookieSession({
     name: 'session',
     keys: ['llave-1', 'llave-2']
 }));
+app.use(formidable({ keepExtensions: true }));
 app.use(methodOverride('_method'));
 
 app.set('view engine', 'jade');
@@ -64,8 +66,6 @@ app.post('/sessions', (request, response) => {
         if (error) {
             response.render('login');
         }
-
-        console.log(user);
 
         if (!user) {
             response.render('login');

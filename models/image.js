@@ -4,11 +4,12 @@ const Schema = mongoose.Schema;
 const imageSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
     },
     creator: {
         type: Schema.Types.ObjectId, ref: 'User'
-    }
+    },
+    extension: { type: String, required: true }
 });
 
 const Image = mongoose.model('Image', imageSchema);

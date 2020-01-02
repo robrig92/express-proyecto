@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Image = require('./models/image').Image;
 const imageFinderMiddleware = require('./middlewares/find_image');
+const fs = require('fs');
 
 router.get('/', (request, response) => {
     response.render('app/home');
@@ -60,9 +61,12 @@ router.route('/imagenes')
         });
     })
     .post((request, response) => {
+        const extension = request.files.file.name.split('.').pop();
+
         const image = new Image({
-            title : request.body.title,
-            creator: response.locals.user._id
+            title : request.fields.title,
+            creator: response.locals.user._id,
+            extension: extension
         });
 
         image.save((error) => {
@@ -70,6 +74,7 @@ router.route('/imagenes')
                 console.log(error);
                 response.redirect('/app/imagenes/new');
             }
+            fs.renameSync(request.files.file.path, `public/images/${image._id}.${extension}`);
             response.redirect(`/app/imagenes/${image._id}`);
         });
     })
