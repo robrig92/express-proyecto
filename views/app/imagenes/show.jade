@@ -2,3 +2,5 @@ extends ../../layout.jade
 
 block content
     h1= image.title
+    if ((typeof image.creator != 'undefined'))
+        p By #{image.creator.email}
