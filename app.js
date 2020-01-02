@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const User = require('./models/user').User;
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 const router_app = require('./router_app');
 const session_middleware = require('./middlewares/session');
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -15,11 +16,11 @@ const userSchemaJSON = {
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({
-    secret: '1237213MSEKSS21',
-    resave: false,
-    saveUninitialized: false
+app.use(cookieSession({
+    name: 'session',
+    keys: ['llave-1', 'llave-2']
 }));
+app.use(methodOverride('_method'));
 
 app.set('view engine', 'jade');
 

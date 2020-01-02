@@ -1,0 +1,12 @@
+extends ../../layout.jade
+
+block content
+    form(action="/app/imagenes/#{image._id}?_method=PUT", method="post")
+        h1 Upload image
+        div(class="row")
+            div(class="col-12 form-group")
+                label(for="title") Title
+                input(class="form-control", id="title", name="title", type="text", placeholder="Title of the image", value="#{image.title}")
+        div(class="row")
+            div(class="col-6")
+                input(class="btn btn-success", type="submit", value="Save")
