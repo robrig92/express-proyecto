@@ -1,13 +1,19 @@
 extends ../../layout.jade
 
 block content
-    h1 Images
+    div(class="row")
+        div(class="col-10")
+            h1 Images
+        div(class="col-2")
+            div(class="mt-2")
+                a(href="/app/imagenes/new", class="col-12 btn btn-info") New
     each image in images
         .white.border.tr.large-padding
             .row
                 .col-md-10
                     h6= image.title
                 .col-md-2
-                    a(href="/app/imagenes/#{image._id}/edit", class="right-space") Editar
+                    a(href="/app/imagenes/#{image._id}", class="right-space") View
+                    a(href="/app/imagenes/#{image._id}/edit", class="right-space") Edit
                     form(action="/app/imagenes/#{image._id}?_method=DELETE", method="post", class="link")
                         input(type="submit", value="Delete")

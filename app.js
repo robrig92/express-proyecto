@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const User = require('./models/user').User;
 const cookieSession = require('cookie-session');
 const router_app = require('./router_app');
@@ -15,8 +14,6 @@ const userSchemaJSON = {
 };
 
 app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession({
     name: 'session',
     keys: ['llave-1', 'llave-2']
@@ -42,10 +39,10 @@ app.get('/signup', (request, response) => {
 
 app.post('/users', (request, response) => {
     let user = new User({
-        email: request.body.email,
-        username: request.body.username,
-        password: request.body.password,
-        password_confirmation: request.body.password_confirmation
+        email: request.fields.email,
+        username: request.fields.username,
+        password: request.fields.password,
+        password_confirmation: request.fields.password_confirmation
     });
 
     user.save().then((document) => {
@@ -60,8 +57,8 @@ app.post('/users', (request, response) => {
 
 app.post('/sessions', (request, response) => {
     User.findOne({
-            email: request.body.email,
-            password: request.body.password
+            email: request.fields.email,
+            password: request.fields.password
     }, (error, user) => {
         if (error) {
             response.render('login');
